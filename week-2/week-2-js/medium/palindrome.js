@@ -4,7 +4,27 @@
 */
 
 function isPalindrome(str) {
+  let arr=str.toLowerCase().split('');
+  let i=0;
+  let j=arr.length-1;
+  while(i<=j){
+  if(arr[i].charCodeAt(0)<97 || arr[i].charCodeAt(0)>122){
+     i++; 
+     continue;
+  }
+  if(arr[j].charCodeAt(0)<97 || arr[j].charCodeAt(0)>122){
+     j--; 
+     continue;
+  }
+  if(arr[i]!=arr[j]){
+    console.log(arr[i]+arr[j]);
+    return false;
+  } 
+  i++;
+  j--;
+  }
   return true;
 }
+console.log(isPalindrome('Able, was I ere I saw Elba!'));
 
 module.exports = isPalindrome;
