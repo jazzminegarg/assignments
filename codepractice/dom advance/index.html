@@ -1,0 +1,72 @@
+<body>
+    <input type="text"></input>
+    <button onclick="addTodo()">Add todo!</button>
+  
+    <button onclick="deleteLastTodo()">Delete last todo</button>
+  
+    <button onclick="deleteFirstTodo()">Delete first todo</button>
+    <div id="todos"></div>
+    <script>
+      let ctr=1;
+      let todos = [];
+      function addTodo() {
+        todos.push({
+          id:  ctr,
+          title: document.querySelector("input").value
+        })
+        ctr++;
+        render()
+      }
+  
+      function deleteLastTodo() {
+        todos.splice(todos.length - 1, 1) // remove the last element from the arr
+        render()
+      }
+  
+  
+      function deleteFirstTodo() {
+        todos.splice(0, 1) // remove the last element from the arr
+        render()
+      }
+
+      function deletetodo(todoid){
+        todos=todos.filter(todo=>todo.id!=todoid);
+        render()
+      }
+      function edittodo(todoid){
+        const newtodo=prompt("enter the edited todo");
+        todos.filter(todo=>{
+            if(todo.id==todoid){
+                todo.title=newtodo;
+            }
+        })
+        render();
+      }
+  
+      function createTodoComponent(todo) {
+        const div = document.createElement("div");
+        const h1 = document.createElement("h1");
+        const button = document.createElement("button");
+        button.setAttribute("onclick","deletetodo("+todo.id+")");
+        const editbutton = document.createElement("button");
+        editbutton.innerHTML = "Edit"
+        editbutton.setAttribute("onclick","edittodo("+todo.id+")");
+        button.innerHTML = "Delete"
+        h1.innerHTML = todo.title;
+        div.append(h1)
+        div.append(button)
+        div.append(editbutton)
+        return div
+      }
+  
+      // react 
+      function render() {
+        document.querySelector("#todos").innerHTML = "";
+        for (let i = 0; i < todos.length; i++) {
+          const element = createTodoComponent(todos[i]);
+          document.querySelector("#todos").appendChild(element)
+        }
+      }
+  
+    </script>
+  </body>
